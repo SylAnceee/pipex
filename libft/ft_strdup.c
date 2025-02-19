@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 16:07:23 by ebella            #+#    #+#             */
-/*   Updated: 2024/11/13 19:03:11 by ebella           ###   ########.fr       */
+/*   Created: 2024/08/29 12:12:36 by abreuil           #+#    #+#             */
+/*   Updated: 2024/09/04 14:28:34 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,20 @@
 
 char	*ft_strdup(const char *s)
 {
-	char	*ch;
-	size_t	len;
+	size_t	i;
+	char	*dup;
 
-	len = ft_strlen(s);
-	ch = malloc(ft_strlen(s) + 1);
-	if (!ch)
+	if (!s)
 		return (NULL);
-	ft_strlcpy(ch, s, len + 1);
-	return (ch);
-}
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	const char	*original = "Hello, World!";
-	char		*copy;
-
-	// Duplication de la chaîne
-	copy = ft_strdup(original);
-	if (copy == NULL)
+	dup = malloc(ft_strlen(s) + 1);
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		printf("Échec de l'allocation de mémoire\n");
-		return (1);
+		dup[i] = s[i];
+		i++;
 	}
-	printf("Chaîne originale : %s\n", original);
-	printf("Copie de la chaîne : %s\n", copy);
-	// Libération de la mémoire allouée pour la copie
-	free(copy);
-	return (0);
+	dup[i] = '\0';
+	return (dup);
 }
-*/

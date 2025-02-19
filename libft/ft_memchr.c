@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 13:41:54 by ebella            #+#    #+#             */
-/*   Updated: 2024/11/08 10:53:46 by ebella           ###   ########.fr       */
+/*   Created: 2024/08/29 17:36:12 by abreuil           #+#    #+#             */
+/*   Updated: 2024/09/04 13:23:37 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,18 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	*l;
-	unsigned char	r;
-	size_t			i;
+	size_t				i;
+	const unsigned char	*str;
+	unsigned char		cc;
 
-	l = (unsigned char *)s;
-	r = (unsigned char)c;
+	str = (const unsigned char *) s;
+	cc = (unsigned char) c;
 	i = 0;
 	while (i < n)
 	{
-		if (l[i] == r)
-			return ((void *)&l[i]);
+		if (str[i] == cc)
+			return ((void *)(str + i));
 		i++;
 	}
 	return (NULL);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	data[] = "Hello, World!";
-	char	*result;
-
-	// Rechercher le caractère 'o' dans les 10 premiers octets
-	result = ft_memchr(data, 'o', 10);
-	if (result != NULL)
-	{
-		printf("Caractère trouvé à l'adresse : %p\n", (void *)result);
-		printf("Caractère trouvé : %c\n", *result); // Affiche "o"
-	}
-	else
-	{
-		printf("Caractère non trouvé dans les 10 premiers octets.\n");
-	}
-	return (0);
-}
-*/

@@ -3,96 +3,160 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 11:45:30 by ebella            #+#    #+#             */
-/*   Updated: 2024/11/13 18:51:20 by ebella           ###   ########.fr       */
+/*   Created: 2024/09/17 11:21:50 by abreuil           #+#    #+#             */
+/*   Updated: 2024/09/25 15:28:54 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	count_words(char *str, char c)
+int	count_words(char const *s, char sep)
 {
+	int	words;
 	int	i;
-	int	count;
 
 	i = 0;
-	count = 0;
-	while (str[i])
+	words = 0;
+	while (s[i])
 	{
-		while (str[i] == c && str[i])
+		while (s[i] == sep && s[i])
 			i++;
-		if (str[i] != c && str[i])
-			count++;
-		while (str[i] != c && str[i])
+		if (s[i] != sep && s[i])
+			words++;
+		while (s[i] != sep && s[i])
 			i++;
 	}
-	return (count);
+	return (words);
 }
 
-char	*ft_dup(char *str, char c)
+char	*dup_str(char const *s, char sep)
 {
 	int		i;
-	char	*dup;
-	int		len;
+	int		j;
+	char	*str;
 
-	len = 0;
-	while (str[len] != c && str[len])
-		len++;
-	dup = malloc((len + 1) * sizeof(char));
-	if (!dup)
-	{
-		free(dup);
-		return (NULL);
-	}
 	i = 0;
-	while (str[i] && str[i] != c)
-	{
-		dup[i] = str[i];
+	while (s[i] != sep && s[i])
 		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
-}
-
-char	**split(char *str, char c)
-{
-	char	**tab;
-
-	tab = malloc((count_words(str, c) + 1) * sizeof(char *));
-	if (!tab)
-	{
-		free(tab);
+	str = malloc(i + 1);
+	if (!str)
 		return (NULL);
+	j = 0;
+	while (j < i)
+	{
+		str[j] = s[j];
+		j++;
 	}
-	return (tab);
+	str[j] = '\0';
+	return (str);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	int		i;
-	char	*str;
 	char	**tab;
 
 	i = 0;
-	str = (char *)s;
-	tab = split(str, c);
-	if (!str || !tab)
+	tab = malloc((count_words(s, c) + 1) * sizeof(char *));
+	if (!tab)
 		return (NULL);
-	while (*str)
+	while (*s)
 	{
-		while (*str == c && str)
-			str++;
-		if (*str != c && *str)
+		while (*s == c && *s)
+			s++;
+		if (*s != c && *s)
 		{
-			tab[i++] = ft_dup(str, c);
+			tab[i] = dup_str(s, c);
 			if (!tab)
 				return (NULL);
+			i++;
 		}
-		while (*str != c && *str)
-			str++;
+		while (*s != c && *s)
+			s++;
 	}
 	tab[i] = NULL;
 	return (tab);
 }
+/*(int	is_sep(const char c, const char *charset)
+{
+	while (*charset)
+	{
+		if (*charset == c)
+			return (1);
+		charset++;
+	}
+	return (0);
+}
+
+int	num_words(const char *str, const char *charset)
+{
+	size_t	wordcount;
+	size_t	i;
+
+	wordcount = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (!is_sep(str[i], charset) && (i == 0 || is_sep(str[i - 1], charset)))
+			wordcount++;
+		i++;
+	}
+	return (wordcount);
+}
+
+void	free_tab(char **tab, int words_allocated)
+{
+	int i = 0;
+	while (i < words_allocated)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+char	**ft_split(const char *s, const char *charset)
+{
+	char	**tab;
+	int		words;
+	int		word;
+	size_t	i;
+	size_t	j;
+
+	if (!s || !charset)
+		return (NULL);
+
+	words = num_words(s, charset);
+	tab = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!tab)
+		return (NULL);
+
+	word = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (!is_sep(s[i], charset))
+		{
+			j = 0;
+			while (s[i + j] && !is_sep(s[i + j], charset))
+				j++;
+			tab[word] = (char *)malloc(sizeof(char) * (j + 1));
+			if (!tab[word])
+			{
+				free_tab(tab, word); 
+				return (NULL);
+			}
+			ft_memcpy(tab[word], &s[i], j); 
+			tab[word][j] = '\0';
+			word++;
+			i += j;
+		}
+		else
+			i++;
+	}
+	tab[word] = NULL;  // Null-terminate the array of strings
+	return (tab);
+}
+*/

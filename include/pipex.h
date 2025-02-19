@@ -6,7 +6,7 @@
 /*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:09:18 by abreuil           #+#    #+#             */
-/*   Updated: 2025/02/17 20:22:47 by abreuil          ###   ########.fr       */
+/*   Updated: 2025/02/19 18:07:31 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h> // strerror
 # include <sys/wait.h> // open
 # include <signal.h>
+# include <errno.h>
 # include "../libft/libft.h" 
 
 typedef struct s_cmd
@@ -37,7 +38,6 @@ typedef struct s_data
 	char	**env; // stores the environment variables used to access the PATH
 	char	**path; // holds the directories from the PATH variable
 	char	**cmd_opt; // stores the command and its options
-	int		len_args; // stores the number of arguments passed to the program
 	int		proc; // tracks number of processes or acts as PID
 	int		fd[2]; //file descriptors for a pipe
 	int		f_in; // input file

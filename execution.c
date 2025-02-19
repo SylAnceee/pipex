@@ -6,7 +6,7 @@
 /*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:30:04 by abreuil           #+#    #+#             */
-/*   Updated: 2025/02/17 20:31:02 by abreuil          ###   ########.fr       */
+/*   Updated: 2025/02/19 18:32:20 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,14 @@
 void	processes_making(t_data *data)
 {
 	if (pipe(data->fd) < 0)
-	{
 		perror("pipe error\n");
-		exit(2);
-	}
-		data->proc = fork();
+	data->proc = fork();
 	if (data->proc < 0)
 	{
 		perror("fork error\n");
 		exit(2);
 	}
-		if (data->proc == 0)
+	if (data->proc == 0)
 	{
 		close(data->fd[0]);
 		dup2(data->f_in, STDIN_FILENO);

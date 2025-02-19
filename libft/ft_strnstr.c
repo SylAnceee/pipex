@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 11:46:30 by ebella            #+#    #+#             */
-/*   Updated: 2024/11/14 16:48:55 by ebella           ###   ########.fr       */
+/*   Created: 2024/09/03 18:22:38 by abreuil           #+#    #+#             */
+/*   Updated: 2024/09/03 18:23:00 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,19 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;
 	size_t	j;
-	char	*hay;
-	size_t	needle_len;
 
+	if (!*needle)
+		return ((char *)haystack);
 	i = 0;
-	hay = (char *)haystack;
-	needle_len = ft_strlen(needle);
-	if (haystack == needle || needle_len == 0)
-		return (hay);
-	while (hay[i] != '\0' && i < len)
+	while (haystack[i] && i < len)
 	{
 		j = 0;
-		while (i + j < len && hay[i + j] != '\0' && needle[j] != '\0' && hay[i
-				+ j] == needle[j])
+		while (haystack[i + j] && needle[j] && (i + j) < len
+			&& haystack[i + j] == needle[j])
 			j++;
-		if (j == needle_len)
-			return (hay + i);
+		if (!needle[j])
+			return ((char *)&haystack[i]);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	const char	*str = "Hello, World!";
-	const char	*sub = "World";
-	char		*result;
-
-	// Limite la recherche aux 10 premiers caractères
-	result = ft_strnstr(str, sub, 14);
-	if (result)
-	{
-		printf("Sous-chaîne trouvée : %s\n", result);
-	}
-	else
-	{
-		printf("Sous-chaîne non trouvée.\n");
-	}
-	return (0);
-}
-*/

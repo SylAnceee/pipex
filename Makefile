@@ -11,16 +11,11 @@ INF = infile
 all: tag $(INF) $(NAME)
 
 $(NAME): $(LIB) $(OBJS)
-	@echo "\n$(BBlue)Compiling object files to $(BPurple)$(NAME)"
 	@$(CC) $(OBJS) $(LIB) -o $@
 
 %.o: %.c $(HEADER)
 	@/bin/echo -n "."
 	@$(CC) $(CFLAGS) -c $< -o $@ -I include
-
-bonus: $(INF) $(LIB)
-	@/bin/echo -n "."
-	@$(CC) $(LIB) -o $(NAME)
 
 $(LIB):
 	@make -C ./libft

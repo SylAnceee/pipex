@@ -3,33 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 17:02:56 by ebella            #+#    #+#             */
-/*   Updated: 2024/11/08 17:10:42 by ebella           ###   ########.fr       */
+/*   Created: 2024/08/04 16:09:13 by abreuil           #+#    #+#             */
+/*   Updated: 2024/09/25 15:19:35 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_tolower(int c)
 {
 	if (c >= 'A' && c <= 'Z')
-		return (c += 32);
+		return (c + 32);
 	return (c);
 }
-/*
-#include <ctype.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	char	c;
-
-	c = 'A';
-	char result = ft_tolower(c);       // Convertit 'a' en 'A'
-	printf("lowercase: %c\n", result); // Affiche 'A'
-	c = 'a';
-	result = ft_tolower(c);            // Ne modifie pas 'Z'
-	printf("lowercase: %c\n", result); // Affiche 'Z'
-	return (0);
-}
-*/

@@ -3,58 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 14:06:48 by ebella            #+#    #+#             */
-/*   Updated: 2024/11/18 12:02:03 by ebella           ###   ########.fr       */
+/*   Created: 2024/08/02 17:29:51 by abreuil           #+#    #+#             */
+/*   Updated: 2024/09/05 13:14:15 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	nblen(long n)
+int	ft_numlen(int nb)
 {
-	int	len;
+	int	counter;
 
-	len = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
+	counter = 0;
+	if (nb <= 0)
+		counter++;
+	while (nb != 0)
 	{
-		len++;
-		n *= -1;
+		nb = nb / 10;
+		counter++;
 	}
-	while (n > 0)
-	{
-		len++;
-		n = n / 10;
-	}
-	return (len);
+	return (counter);
 }
 
 char	*ft_itoa(int n)
 {
 	int		len;
 	char	*str;
-	long	nb;
+	long	nbr;
 
-	nb = n;
-	len = nblen(nb);
-	str = malloc(len + 1);
+	nbr = n;
+	len = ft_numlen(nbr);
+	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
-	str[len--] = '\0';
-	if (nb == 0)
+	str[len] = '\0';
+	if (nbr == 0)
 		str[0] = '0';
-	if (nb < 0)
+	if (nbr < 0)
 	{
 		str[0] = '-';
-		nb *= -1;
+		nbr = -nbr;
 	}
-	while (nb > 0)
+	while (nbr > 0)
 	{
-		str[len--] = (nb % 10) + '0';
-		nb /= 10;
+		str[--len] = nbr % 10 + '0';
+		nbr = nbr / 10;
 	}
 	return (str);
 }
+
+/*int	main(void)
+{
+	int		numbers[] = {0, 123, -456, 7890, -2147483648, 2147483647};
+	size_t	size = sizeof(numbers) / sizeof(numbers[0]);
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	while (i < size)
+	{
+		str = ft_itoa(numbers[i]);
+		if (str)
+		{
+			printf("Integer: %d, String: %s\n", numbers[i], str);
+			free(str);
+		}
+		else
+		{
+			printf("Conversion failed for integer: %d\n", numbers[i]);
+		}
+		i++;
+	}
+	return (0);
+}
+*/

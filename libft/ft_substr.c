@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 11:13:40 by ebella            #+#    #+#             */
-/*   Updated: 2025/01/17 17:22:05 by ebella           ###   ########.fr       */
+/*   Created: 2024/09/24 08:19:40 by abreuil           #+#    #+#             */
+/*   Updated: 2024/09/25 15:24:47 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*str;
+	char	*substr;
 	size_t	i;
 	size_t	s_len;
 
@@ -22,18 +22,33 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	s_len = ft_strlen(s);
 	if (start >= s_len)
+	{
 		return (ft_strdup(""));
+	}
 	if (len > s_len - start)
 		len = s_len - start;
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
+	substr = malloc(sizeof(char) * (len + 1));
+	if (!substr)
 		return (NULL);
 	i = 0;
 	while (i < len && s[start + i])
 	{
-		str[i] = s[start + i];
+		substr[i] = s[start + i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	substr[i] = '\0';
+	return (substr);
 }
+
+//int main (void)
+//{
+//	char *original = "Hello, World!";
+//    char *substring;
+//
+//    substring = ft_substr(original, 7, 6);  // Extracts "World"
+//    printf("Substring: %s\n", substring);
+//
+//	free(substring);
+//
+//	return (1);
+//}

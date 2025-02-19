@@ -3,54 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 13:13:39 by ebella            #+#    #+#             */
-/*   Updated: 2024/12/04 19:13:57 by ebella           ###   ########.fr       */
+/*   Created: 2024/09/10 17:00:21 by abreuil           #+#    #+#             */
+/*   Updated: 2024/09/25 15:13:20 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-int	ft_trim(char c, char const *set)
+int	ft_isset(char c, const char *set)
 {
-	size_t	i;
-
-	i = 0;
-	while (set[i])
+	while (*set)
 	{
-		if (c == set[i])
+		if (c == *set)
 			return (1);
-		i++;
+		set++;
 	}
 	return (0);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(const char *s, const char *set)
 {
+	char	*trimmed;
 	size_t	start;
-	char	*str;
 	size_t	end;
+	size_t	trim_size;
 
-	if (!s1)
+	if (!s || !set)
 		return (NULL);
-	if (!set)
-		return (ft_strdup(s1));
 	start = 0;
-	end = ft_strlen(s1);
-	while (ft_trim(s1[start], set) == 1)
+	while (s[start] && ft_isset(s[start], set) == 1)
 		start++;
-	if (start == (size_t)ft_strlen(s1))
-	{
-		str = ft_strdup("");
-		if (!str)
-			return (NULL);
-		else
-			return (str);
-	}
-	while (ft_trim(s1[end - 1], set) == 1)
+	end = ft_strlen(s);
+	while (end > start && ft_isset(s[end - 1], set) == 1)
 		end--;
-	str = ft_substr(s1, start, end - start);
-	return (str);
+	trim_size = end - start;
+	trimmed = malloc(trim_size + 1);
+	if (!trimmed)
+		return (NULL);
+	ft_strlcpy(trimmed, &s[start], trim_size + 1);
+	return (trimmed);
 }
+
+/*int main() 
+{
+    // Test cases for ft_strtrim
+    const char *test1 = "   Hello, World!   ";
+    const char *test2 = "NoSpaces";
+    const char *test3 = "      ";
+    const char *test4 = "\t  Trimming\tExample  \n";
+    
+    // Trimming results
+    char *result1 = ft_strtrim(test1, " ");
+    char *result2 = ft_strtrim(test2, " ");
+    char *result3 = ft_strtrim(test3, " ");
+    char *result4 = ft_strtrim(test4, " ");
+
+    // Print results
+    printf("Original: \"%s\" -> Trimmed: \"%s\"\n", test1, result1);
+    printf("Original: \"%s\" -> Trimmed: \"%s\"\n", test2, result2);
+    printf("Original: \"%s\" -> Trimmed: \"%s\"\n", test3, result3);
+    printf("Original: \"%s\" -> Trimmed: \"%s\"\n", test4, result4);
+
+    // Free allocated memory
+    free(result1);
+    free(result2);
+    free(result3);
+    free(result4);
+
+    return 0;
+}*/

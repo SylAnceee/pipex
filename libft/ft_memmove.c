@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 10:42:09 by ebella            #+#    #+#             */
-/*   Updated: 2024/11/13 19:04:29 by ebella           ###   ########.fr       */
+/*   Created: 2024/08/29 14:17:51 by abreuil           #+#    #+#             */
+/*   Updated: 2024/08/29 17:28:40 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,56 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	int	i;
+	unsigned char		*d;
+	const unsigned char	*s;
 
-	i = 0;
-	if (!dest && !src)
-		return (NULL);
-	if (dest > src)
+	d = (unsigned char *)dest;
+	s = (const unsigned char *)src;
+	if (d == s || n == 0)
+		return (dest);
+	if (d < s)
 	{
-		i = (int)n - 1;
-		while (i >= 0)
-		{
-			*(char *)(dest + i) = *(char *)(src + i);
-			i--;
-		}
+		while (n--)
+			*d++ = *s++;
 	}
 	else
 	{
-		i = 0;
-		while (i < (int)n)
-		{
-			*(char *)(dest + i) = *(char *)(src + i);
-			i++;
-		}
+		d += n;
+		s += n;
+		while (n--)
+			*--d = *--s;
 	}
 	return (dest);
 }
-/*
-#include <stdio.h>
 
-int	main(void)
+/*
+#include "libft.h"
+
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char buffer[11] = "ABCDEFGHIJ"; // 10 caractères + le '\0'
-	printf("Avant memmove : %s\n", buffer);
-	// Déplacement de "ABCDE" dans la position suivante (buffer + 5)
-	ft_memmove(buffer + 5, buffer, 5);
-	// Chevauchement car src et dest se croisent
-	printf("Après memmove : %s\n", buffer); // Affiche "ABCDEABCDE"
-	return (0);
+	size_t	i;
+	unsigned char *d; 
+	const unsigned char *s;
+
+	i = 0;	
+	d = (unsigned char *) dest;
+	s = (const unsigned char *) src;
+
+	if (d == s || n == 0)
+		return (dest);
+	if (d < s)
+		{
+			while(i++ < n)
+				d[i] = s[i];
+		}
+	else 
+	{
+		while (i > n)
+		{
+			d[i] = s[i];
+			i--;
+		}
+	}
+	return (d);   
 }
 */

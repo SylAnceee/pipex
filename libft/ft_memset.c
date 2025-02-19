@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 13:54:12 by ebella            #+#    #+#             */
-/*   Updated: 2024/11/08 11:10:38 by ebella           ###   ########.fr       */
+/*   Created: 2024/08/02 19:13:57 by abreuil           #+#    #+#             */
+/*   Updated: 2024/08/29 10:30:07 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,20 @@
 
 void	*ft_memset(void *s, int c, size_t n)
 {
-	size_t			i;
-	unsigned char	*t;
+	unsigned char	*p;
 
-	t = (unsigned char *)s;
-	i = 0;
-	while (i < n)
+	p = s;
+	while (n)
 	{
-		t[i] = (char)c;
-		i++;
+		*p++ = (unsigned char) c;
+		n--;
 	}
-	return ((unsigned char *)s);
+	return (s);
 }
 
-/*int main ()
+/*int main()
 {
-  int arr[10];
-  memset(arr, 0, 5);
-  ft_memset(arr, 0, 5);
-for (int i = 0; i < 10; i++)
-  {
-	printf("%d", arr[i]);
-	pri
-  }
-		return (0);
+	char str[] = "Hello, world!";
+	ft_memset(str, '-', 4);
+	printf("%s\n", str);
 }*/
