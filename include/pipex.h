@@ -6,7 +6,7 @@
 /*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:09:18 by abreuil           #+#    #+#             */
-/*   Updated: 2025/02/19 18:07:31 by abreuil          ###   ########.fr       */
+/*   Updated: 2025/02/21 17:19:55 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	int				f_in; // stdint
 	int				f_out; //stdout
-	int				*tab_pipe; // array of pipe FDs used to connect cmds
 }	t_cmd;
 
 typedef struct s_data
