@@ -6,12 +6,15 @@
 /*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:09:18 by abreuil           #+#    #+#             */
-/*   Updated: 2025/02/21 17:19:55 by abreuil          ###   ########.fr       */
+/*   Updated: 2025/02/23 13:36:02 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
+# define BUFFER_SIZE 4096
+# define MAX_ALLOWED 4096
 
 # include <unistd.h> // fork, execve, pipe
 # include <stdlib.h> // malloc
