@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:30:04 by abreuil           #+#    #+#             */
-/*   Updated: 2025/02/24 14:44:19 by abreuil          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:36:26 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	child_process_one(t_data *data)
 	}
 	close(data->fd[1]);
 	close(data->f_in);
+	close(data->f_out);
 	execute(data->av[1], data);
 	exit(1);
 }
@@ -46,6 +47,7 @@ static void	child_process_two(t_data *data)
 	}
 	close(data->fd[0]);
 	close(data->f_out);
+	close(data->f_in);
 	execute(data->av[2], data);
 	exit(1);
 }
@@ -54,6 +56,8 @@ static void	parent_cleanup(t_data *data, pid_t pid1, pid_t pid2)
 {
 	close(data->fd[0]);
 	close(data->fd[1]);
+	close(data->f_in);
+	close(data->f_out);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
 }

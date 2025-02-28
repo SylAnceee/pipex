@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:07:51 by abreuil           #+#    #+#             */
-/*   Updated: 2025/02/23 13:51:44 by abreuil          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:52:43 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ int	main(int ac, char **av, char **env)
 
 	if (ac == 5)
 		init_data(&data, env, av);
+	else if (!av[1] || !av[2])
+	{
+		ft_putstr_fd("Error: no command given\n", 2);
+		exit(2);
+	}
 	else
 	{
 		ft_putstr_fd("Usage: ./pipex file1 cmd1 cmd2 file2\n", 2);

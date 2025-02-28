@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abreuil <abreuil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abreuil <abreuil@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:39:16 by abreuil           #+#    #+#             */
-/*   Updated: 2025/02/21 17:19:12 by abreuil          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:54:13 by abreuil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,25 @@ void	get_path(t_data *data, char **env)
 	while (env[i] && ft_strncmp(env[i], "PATH=", j))
 		i++;
 	if (!env[i])
+	{
+		perror("PATH not found.\n");
 		exit(2);
-	ptr = ft_calloc(ft_strlen(&env[i][j]) + 1, sizeof(char));
+	}
+		ptr = ft_calloc(ft_strlen(&env[i][j]) + 1, sizeof(char));
 	if (!ptr)
 		return ;
 	ft_strlcpy(ptr, &env[i][j], ft_strlen(&env[i][j]) + 1);
 	data->path = ft_split(ptr, ':');
 	free(ptr);
 }
-
-void	execute(char *cmd, t_data *data)
+void execute2(t_data *data, char *cmd)
 {
-	int		i;
-	char	*pth_cmd;
-	char	*temp;
-
-	if (!cmd || !*cmd)
-		exit(126);
-	i = 0;
-	get_path(data, data->env);
+	int i;
+	char *pth_cmd;
+	char *temp;
+	
 	data->cmd_opt = ft_split(cmd, ' ');
+	i = 0;
 	while (data->path[i])
 	{
 		temp = ft_strjoin("/", data->cmd_opt[0]);
@@ -77,5 +76,16 @@ void	execute(char *cmd, t_data *data)
 		free(pth_cmd);
 		i++;
 	}
-	handle_execve_error(data);
+	write(2, "Command not found.\n", 19);
+}
+
+void	execute(char *cmd, t_data *data)
+{
+	if (!cmd || !*cmd)
+	{
+		ft_putstr_fd("Error: empty command\n", 2);
+		exit(126);
+	}
+	get_path(data, data->env);
+	execute2(data, cmd);
 }
